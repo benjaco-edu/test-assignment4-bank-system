@@ -1,8 +1,8 @@
 # Test assignment 4 - bank system
 
-[https://github.com/datsoftlyngby/soft2019spring-test/blob/master/Assignments/04%20Specification%20Based%20Testing%20Techniques%20Assignment.pdf]
+https://github.com/datsoftlyngby/soft2019spring-test/blob/master/Assignments/04%20Specification%20Based%20Testing%20Techniques%20Assignment.pdf
 
-![https://raw.githubusercontent.com/benjaco-edu/test-assignment4-bank-system/master/assignment.png]
+![Assignment definition](https://raw.githubusercontent.com/benjaco-edu/test-assignment4-bank-system/master/assignment.png)
 
 #### 1
 
