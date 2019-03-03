@@ -1,27 +1,28 @@
 class Account {
-    /**
-     * @type {Number}
-     * @private
-     */
-    _id = null;
-    /**
-     * @type {number}
-     * @private
-     */
-    _balance = 0;
-    /**
-     * @type {number}
-     * @private
-     */
-    _discount = 0;
-    /**
-     * @type {Date}
-     * @private
-     */
-    _discountDay = null;
 
 
     constructor(balance = 0) {
+        /**
+         * @type {Number}
+         * @private
+         */
+        this._id = null;
+        /**
+         * @type {number}
+         * @private
+         */
+        this._balance = 0;
+        /**
+         * @type {number}
+         * @private
+         */
+        this._discount = 0;
+        /**
+         * @type {Date}
+         * @private
+         */
+        this._discountDay = null;
+
         this.setId = this.setId.bind(this);
         this.getId = this.getId.bind(this);
         this.setBalance = this.setBalance.bind(this);
@@ -47,14 +48,14 @@ class Account {
     /**
      * @returns {Number}
      */
-    getId(){
+    getId() {
         return this._id;
     }
 
     /**
      * @param {Number} balance
      */
-    setBalance(balance){
+    setBalance(balance) {
         if (balance !== parseFloat(balance) || balance < 0) {
             throw new Error("Balance has to be a positive number")
         }
@@ -65,14 +66,14 @@ class Account {
     /**
      * @returns {number}
      */
-    getBalance(){
+    getBalance() {
         return this._balance;
     }
 
     /**
      * @param {Number} amount
      */
-    deposit(amount){
+    deposit(amount) {
         if (amount !== parseFloat(amount) || amount < 0) {
             throw new Error("Amount has to be a positive number")
         }
@@ -83,7 +84,7 @@ class Account {
     /**
      * @param {Number} amount
      */
-    withdraw(amount){
+    withdraw(amount) {
         if (amount !== parseFloat(amount) || amount < 0) {
             throw new Error("Amount has to be a positive number")
         }
@@ -94,14 +95,14 @@ class Account {
     /**
      * @returns {number}
      */
-    getMonthlyInterestRate(){
-        if (this._balance <= 0) {
+    getMonthlyInterestRate() {
+        if (this._balance < 0) {
             return 0
         }
         if (this._balance <= 100) {
             return .03;
         }
-        if (this._balance <= 100) {
+        if (this._balance <= 1000) {
             return .05;
         }
         return .07;
@@ -122,3 +123,5 @@ class Account {
         this._discountDay = untilDate;
     }
 }
+
+module.exports = Account;

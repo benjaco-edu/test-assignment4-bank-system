@@ -1,24 +1,27 @@
+const Account = require("./Account");
+
+
 class Customer {
-    /**
-     * @type {string}
-     * @private
-     */
-    _name = "";
-    /**
-     * @type {Account[]}
-     * @private
-     */
-    _accounts = [];
-    /**
-     * @type {Number}
-     * @private
-     */
-    _id = null;
 
     /**
      * @param {String} name
      */
     constructor(name) {
+        /**
+         * @type {string}
+         * @private
+         */
+        this._name = "";
+        /**
+         * @type {Account[]}
+         * @private
+         */
+        this._accounts = [];
+        /**
+         * @type {Number}
+         * @private
+         */
+        this._id = null;
         this.setName = this.setName.bind(this);
         this.getName = this.getName.bind(this);
         this.addAccount = this.addAccount.bind(this);
@@ -115,7 +118,7 @@ class Customer {
         }
 
         let untilTomorrow = Customer._tomorrow();
-        let untilForever = new Date(9999,0);
+        let untilForever = new Date(9999, 0);
 
         if (loyaltyCard) {
             return {discount: .10, until: untilForever}
@@ -144,3 +147,5 @@ class Customer {
     }
 
 }
+
+module.exports = Customer;

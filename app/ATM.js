@@ -1,11 +1,15 @@
+const CreditCard = require("./CreditCard");
+
 class ATM {
-    /**
-     * @type {CreditCard}
-     * @private
-     */
-    _creditCard = null;
+
 
     constructor() {
+        /**
+         * @type {CreditCard}
+         * @private
+         */
+        this._creditCard = null;
+
         this.insert = this.insert.bind(this);
         this.eject = this.eject.bind(this);
         this.deposit = this.deposit.bind(this);
@@ -18,7 +22,7 @@ class ATM {
      * @param pinCode
      * @returns {boolean} Successfully inserted
      */
-    insert(creditCard, pinCode){
+    insert(creditCard, pinCode) {
         this._mustNotHaveCreditcard();
         if (!creditCard instanceof CreditCard) {
             throw new Error("Creditcard has to be of type creditcard")
@@ -30,7 +34,7 @@ class ATM {
             throw new Error("Pincode has to be a 4 char string")
         }
 
-        if(creditCard.isBlocked()){
+        if (creditCard.isBlocked()) {
             return false;
         }
 
@@ -46,7 +50,8 @@ class ATM {
         this._creditCard = creditCard;
         return true;
     }
-    eject(){
+
+    eject() {
         this._mustNotHaveCreditcard();
         this._creditCard = null;
     }
@@ -54,7 +59,7 @@ class ATM {
     /**
      * @param {Number} amount
      */
-    deposit(amount){
+    deposit(amount) {
         this._mustHaveActiveCreditcard();
         if (amount !== parseFloat(amount) || amount < 0) {
             throw new Error("Amount has to be a positive number")
@@ -65,7 +70,7 @@ class ATM {
     /**
      * @param {Number} amount
      */
-    withdraw(amount){
+    withdraw(amount) {
         this._mustHaveActiveCreditcard();
         if (amount !== parseFloat(amount) || amount < 0) {
             throw new Error("Amount has to be a positive number")
@@ -76,13 +81,21 @@ class ATM {
     /**
      * @returns {Number}
      */
-    getBalance(){
+    getBalance() {
         this._mustHaveActiveCreditcard();
         return this._creditCard.getAccount().getBalance();
     }
 
+    /**
+     * @returns {string}
+     */
+    getWelcomeMessage(){
+        this._mustHaveActiveCreditcard();
+        return `Hi, you have ${this.getBalance().toFixed(2)}$ on your account`;
+    }
 
-    _mustHaveActiveCreditcard(){
+
+    _mustHaveActiveCreditcard() {
         if (this._creditCard === null) {
             throw new Error("No creditcard inserted")
         }
@@ -91,9 +104,12 @@ class ATM {
             throw new Error("Creditcard must have a account")
         }
     }
-    _mustNotHaveCreditcard(){
+
+    _mustNotHaveCreditcard() {
         if (this._creditCard !== null) {
             throw new Error("Creditcard already inserted")
         }
     }
 }
+
+module.exports = ATM;

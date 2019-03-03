@@ -1,37 +1,41 @@
+const Account = require("./Account");
+
+
 class CreditCard {
-
-    /**
-     * @type {Number}
-     * @private
-     */
-    _id = null;
-    /**
-     * @type {Account}
-     * @private
-     */
-    _account = null;
-    /**
-     * @type {Date}
-     * @private
-     */
-    _lastUsed = null;
-    /**
-     * @type {String}
-     * @private
-     */
-    _pin = null;
-    /**
-     * @type {boolean}
-     * @private
-     */
-    _blocked = false;
-    /**
-     * @type {number}
-     * @private
-     */
-    _wrongAttempts = 0;
-
     constructor() {
+
+        /**
+         * @type {Number}
+         * @private
+         */
+        this._id = null;
+        /**
+         * @type {Account}
+         * @private
+         */
+        this._account = null;
+        /**
+         * @type {Date}
+         * @private
+         */
+        this._lastUsed = null;
+        /**
+         * @type {String}
+         * @private
+         */
+        this._pin = null;
+        /**
+         * @type {boolean}
+         * @private
+         */
+        this._blocked = false;
+        /**
+         * @type {number}
+         * @private
+         */
+        this._wrongAttempts = 0;
+
+
         this.setId = this.setId.bind(this);
         this.getId = this.getId.bind(this);
         this.setAccount = this.setAccount.bind(this);
@@ -164,3 +168,5 @@ class CreditCard {
         return this._account !== null;
     }
 }
+
+module.exports = CreditCard;
