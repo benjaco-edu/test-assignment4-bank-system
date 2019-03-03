@@ -8,6 +8,8 @@ let Customer = require('../app/Customer');
 
 describe('Customer', function () {
     describe('Get discount', function () {
+
+        // Repeated test using a loop
         for (let i = 0; i < 3; i++) {
 
             it(`Run #${i} - New customer cant have a loyalty card and coupon`, function () {
@@ -23,6 +25,7 @@ describe('Customer', function () {
             });
         }
 
+        // test cases for parameterized test
         let runWith = [
             [[true, false, true], {discount: .2, until: Customer._tomorrow()}],
             [[true, false, false], {discount: .15, until: Customer._tomorrow()}],
@@ -32,12 +35,6 @@ describe('Customer', function () {
             [[false, false, false], {discount: 0, until: null}],
         ];
 
-        function* getTestCases() {
-            for (let value of runWith) {
-                yield value;
-            }
-        }
-
         // simple paramerterized test
         runWith.forEach(function ([param, result]) {
             it(`simple loop - Customer.getDiscount(${param.join(", ")}) should be ${JSON.stringify(result)} (time in utc)`, function () {
@@ -46,7 +43,15 @@ describe('Customer', function () {
             })
         });
 
+
         // method paramerterized test
+        // a function to output the test cases, a generator is used
+        function* getTestCases() {
+            for (let value of runWith) {
+                yield value;
+            }
+        }
+
         for (const [param, result] of getTestCases()) {
             it(`from function - Customer.getDiscount(${param.join(", ")}) should be ${JSON.stringify(result)} (time in utc)`, function () {
                 let discount = Customer.getDiscount(...param);
@@ -59,6 +64,9 @@ describe('Customer', function () {
             let discount = Customer.getDiscount(...value[0]);
             discount.should.eql(value[1]);
         });
+
+
+        // inline csv example, a npm libery is used to parse the csv
 
         let csv = `
 "newCustomer","loyaltyCard","coupon","discount"
@@ -78,6 +86,8 @@ describe('Customer', function () {
                 discount.discount.should.equal(parseFloat(test.discount));
             })
         }
+
+        // csv from a file
 
         for (let test of parse(fs.readFileSync(__dirname+"/customer_discount_testcases.csv"), {
             columns: true,
